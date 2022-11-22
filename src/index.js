@@ -25,7 +25,7 @@ fs.readdirSync(__dirname).forEach(file => {
 });
 
 // concatenating the path
-fs.createReadStream(__dirname+'/Departamentos_y_Municipios_de_Colombia.csv')
+fs.createReadStream(__dirname+'/Departamentos_y_municipios_de_Colombia.csv')
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
