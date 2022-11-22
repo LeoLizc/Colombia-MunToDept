@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const morgan = require('morgan')
 
 app.set('port', process.env.PORT || 5000);
 
@@ -9,6 +10,7 @@ app.set('port', process.env.PORT || 5000);
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use(morgan('dev'))
 
 // read the Departamentos_y_Municipios_de_Colombia.csv file
 const csv = require('csv-parser')
@@ -37,6 +39,7 @@ fs.createReadStream(__dirname+'/Departamentos_y_municipios_de_Colombia.csv')
             const municipio = item.MUNICIPIO.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const departamento = item.DEPARTAMENTO.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             map.set(municipio, departamento);
+            delete results;
             // console.log(results);
             // map.set(item.Municipio, item.Departamento);
         });
@@ -46,7 +49,6 @@ console.log(map);
 
 // release the memory
 // results.length = 0;
-delete results;
 
 // routes
 app.get('/', (req, res) => {
