@@ -16,7 +16,8 @@ const fs = require('fs')
 const results = [];
 const map = new Map();
 
-fs.createReadStream('Departamentos_y_Municipios_de_Colombia.csv')
+// concatenating the path
+fs.createReadStream('./Departamentos_y_Municipios_de_Colombia.csv')
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
