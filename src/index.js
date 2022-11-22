@@ -25,22 +25,22 @@ fs.readdirSync(__dirname).forEach(file => {
 });
 
 // concatenating the path
-// fs.createReadStream('Departamentos_y_Municipios_de_Colombia.csv')
-//     .pipe(csv())
-//     .on('data', (data) => results.push(data))
-//     .on('end', () => {
-//         // console.log(results);
-//         // convert the csv file to map with the format {municipio: departamento}
-//         results.forEach((item) => {
-//             // make sure the municipio is lower case and without accents
-//             // and department is also without accents
-//             const municipio = item.MUNICIPIO.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-//             const departamento = item.DEPARTAMENTO.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-//             map.set(municipio, departamento);
-//             // console.log(results);
-//             // map.set(item.Municipio, item.Departamento);
-//         });
-//     });
+fs.createReadStream(__dirname+'/Departamentos_y_Municipios_de_Colombia.csv')
+    .pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+        // console.log(results);
+        // convert the csv file to map with the format {municipio: departamento}
+        results.forEach((item) => {
+            // make sure the municipio is lower case and without accents
+            // and department is also without accents
+            const municipio = item.MUNICIPIO.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const departamento = item.DEPARTAMENTO.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            map.set(municipio, departamento);
+            // console.log(results);
+            // map.set(item.Municipio, item.Departamento);
+        });
+    });
     
 console.log(map);
 
