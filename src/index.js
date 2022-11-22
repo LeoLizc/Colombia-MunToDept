@@ -16,8 +16,11 @@ const fs = require('fs')
 const results = [];
 const map = new Map();
 
+// library to concatenate paths
+const path = require('path');
+
 // concatenating the path
-fs.createReadStream('./Departamentos_y_Municipios_de_Colombia.csv')
+fs.createReadStream(path.join(__dirname, 'Departamentos_y_Municipios_de_Colombia.csv'))
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
